@@ -1,6 +1,6 @@
 {
   "name": "@densh/ghost-mcp-server",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Ghost MCP Server for interacting with Ghost CMS API",
   "type": "module",
   "main": "build/index.js",
