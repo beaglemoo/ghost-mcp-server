@@ -161,7 +161,7 @@ declare module '@tryghost/admin-api' {
     id: string;
   }
 
-  // 画像アップロード関連の型定義を追加
+  // Image upload-related type definitions
   interface ImageUploadResponse {
     url: string;
     ref?: string;

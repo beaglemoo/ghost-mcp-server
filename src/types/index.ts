@@ -24,11 +24,11 @@ export type PostInclude = 'authors' | 'tags';
 export type TagInclude = 'count.posts';
 export type AuthorInclude = 'count.posts';
 
-// 画像関連の型定義
+// Image-related type definitions
 export type ImagePurpose = 'image' | 'profile_image' | 'icon';
 
 export interface ImageUploadParams {
-  file: string; // Base64エンコードされた画像データ
+  file: string; // Base64-encoded image data
   purpose?: ImagePurpose;
   ref?: string;
 }

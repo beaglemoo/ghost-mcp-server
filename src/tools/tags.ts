@@ -7,24 +7,24 @@ const ghostApi = createGhostApi();
 
 export const getTagsSchema = {
   name: 'get_tags',
-  description: 'タグ一覧を取得',
+  description: 'Get list of tags',
   inputSchema: {
     type: 'object',
     properties: {
       limit: {
         type: 'number',
-        description: '取得するタグ数(デフォルト: 10)',
+        description: 'Number of tags to retrieve (default: 10)',
         minimum: 1,
         maximum: 100
       },
       page: {
         type: 'number',
-        description: 'ページ番号(デフォルト: 1)',
+        description: 'Page number (default: 1)',
         minimum: 1
       },
       order: {
         type: 'string',
-        description: '並び順(デフォルト: name ASC)',
+        description: 'Sort order (default: name ASC)',
         enum: [
           'name ASC',
           'name DESC',
@@ -34,12 +34,12 @@ export const getTagsSchema = {
       },
       include: {
         type: 'string',
-        description: '含める関連データ',
+        description: 'Related data to include',
         enum: ['count.posts']
       },
       filter: {
         type: 'string',
-        description: 'フィルター条件(例: visibility:public, slug:getting-started)'
+        description: 'Filter condition (e.g., visibility:public, slug:getting-started)'
       }
     }
   },

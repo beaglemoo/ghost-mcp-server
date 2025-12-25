@@ -15,13 +15,13 @@ export const toolSchemas = [
       properties: {
         limit: {
           type: 'number',
-          description: '取得する記事数(デフォルト: 10)',
+          description: 'Number of posts to retrieve (default: 10)',
           minimum: 1,
           maximum: 100
         },
         page: {
           type: 'number',
-          description: 'ページ番号(デフォルト: 1)',
+          description: 'Page number (default: 1)',
           minimum: 1
         }
       }
@@ -29,13 +29,13 @@ export const toolSchemas = [
   },
   {
     name: 'get_post',
-    description: '特定の記事を取得',
+    description: 'Get a specific post',
     inputSchema: {
       type: 'object',
       properties: {
         id: {
           type: 'string',
-          description: '記事のID'
+          description: 'Post ID'
         }
       },
       required: ['id']
@@ -43,17 +43,17 @@ export const toolSchemas = [
   },
   {
     name: 'search_posts',
-    description: '記事を検索',
+    description: 'Search posts',
     inputSchema: {
       type: 'object',
       properties: {
         query: {
           type: 'string',
-          description: '検索キーワード'
+          description: 'Search keyword'
         },
         limit: {
           type: 'number',
-          description: '取得する記事数(デフォルト: 10)',
+          description: 'Number of posts to retrieve (default: 10)',
           minimum: 1,
           maximum: 100
         }
@@ -63,65 +63,65 @@ export const toolSchemas = [
   },
   {
     name: 'create_post',
-    description: '新しい記事を作成',
+    description: 'Create a new post',
     inputSchema: {
       type: 'object',
       properties: {
         title: {
           type: 'string',
-          description: '記事のタイトル'
+          description: 'Post title'
         },
         html: {
           type: 'string',
-          description: 'HTML形式のコンテンツ'
+          description: 'Content in HTML format'
         },
         lexical: {
           type: 'string',
-          description: 'Lexical形式のコンテンツ'
+          description: 'Content in Lexical format'
         },
         status: {
           type: 'string',
-          description: '記事の状態',
+          description: 'Post status',
           enum: ['published', 'draft', 'scheduled']
         },
         visibility: {
           type: 'string',
-          description: '公開範囲',
+          description: 'Visibility scope',
           enum: ['public', 'members', 'paid', 'tiers']
         },
         published_at: {
           type: 'string',
-          description: '公開日時(スケジュール投稿用)'
+          description: 'Publication date (for scheduled posts)'
         },
         tags: {
           type: 'array',
-          description: 'タグのID配列',
+          description: 'Array of tag IDs',
           items: {
             type: 'string'
           }
         },
         authors: {
           type: 'array',
-          description: '著者のID配列',
+          description: 'Array of author IDs',
           items: {
             type: 'string'
           }
         },
         featured: {
           type: 'boolean',
-          description: 'おすすめ記事として設定'
+          description: 'Set as featured post'
         },
         email_subject: {
           type: 'string',
-          description: 'メール送信時の件名'
+          description: 'Email subject line'
         },
         email_only: {
           type: 'boolean',
-          description: 'メールのみの投稿'
+          description: 'Email-only post'
         },
         newsletter: {
           type: 'boolean',
-          description: 'メール送信を行うかどうか'
+          description: 'Whether to send email'
         }
       },
       required: ['title']
@@ -129,69 +129,69 @@ export const toolSchemas = [
   },
   {
     name: 'update_post',
-    description: '記事を更新',
+    description: 'Update a post',
     inputSchema: {
       type: 'object',
       properties: {
         id: {
           type: 'string',
-          description: '記事のID'
+          description: 'Post ID'
         },
         title: {
           type: 'string',
-          description: '記事のタイトル'
+          description: 'Post title'
         },
         html: {
           type: 'string',
-          description: 'HTML形式のコンテンツ'
+          description: 'Content in HTML format'
         },
         lexical: {
           type: 'string',
-          description: 'Lexical形式のコンテンツ'
+          description: 'Content in Lexical format'
         },
         status: {
           type: 'string',
-          description: '記事の状態',
+          description: 'Post status',
           enum: ['published', 'draft', 'scheduled']
         },
         visibility: {
           type: 'string',
-          description: '公開範囲',
+          description: 'Visibility scope',
           enum: ['public', 'members', 'paid', 'tiers']
         },
         published_at: {
           type: 'string',
-          description: '公開日時(スケジュール投稿用)'
+          description: 'Publication date (for scheduled posts)'
         },
         tags: {
           type: 'array',
-          description: 'タグのID配列(既存のタグは置換)',
+          description: 'Array of tag IDs (replaces existing tags)',
           items: {
             type: 'string'
           }
         },
         authors: {
           type: 'array',
-          description: '著者のID配列(既存の著者は置換)',
+          description: 'Array of author IDs (replaces existing authors)',
           items: {
             type: 'string'
           }
         },
         featured: {
           type: 'boolean',
-          description: 'おすすめ記事として設定'
+          description: 'Set as featured post'
         },
         email_subject: {
           type: 'string',
-          description: 'メール送信時の件名'
+          description: 'Email subject line'
         },
         email_only: {
           type: 'boolean',
-          description: 'メールのみの投稿'
+          description: 'Email-only post'
         },
         newsletter: {
           type: 'boolean',
-          description: 'メール送信を行うかどうか'
+          description: 'Whether to send email'
         }
       },
       required: ['id']
@@ -199,13 +199,13 @@ export const toolSchemas = [
   },
   {
     name: 'delete_post',
-    description: '記事を削除',
+    description: 'Delete a post',
     inputSchema: {
       type: 'object',
       properties: {
         id: {
           type: 'string',
-          description: '記事のID'
+          description: 'Post ID'
         }
       },
       required: ['id']
@@ -213,17 +213,17 @@ export const toolSchemas = [
   },
   {
     name: 'get_post_by_slug',
-    description: 'スラッグで記事を取得',
+    description: 'Get a post by slug',
     inputSchema: {
       type: 'object',
       properties: {
         slug: {
           type: 'string',
-          description: '記事のスラッグ'
+          description: 'Post slug'
         },
         formats: {
           type: 'array',
-          description: '取得するコンテンツフォーマット',
+          description: 'Content formats to retrieve',
           items: {
             type: 'string',
             enum: ['html', 'mobiledoc', 'lexical']
@@ -231,7 +231,7 @@ export const toolSchemas = [
         },
         include: {
           type: 'array',
-          description: '含める関連データ',
+          description: 'Related data to include',
           items: {
             type: 'string',
             enum: ['authors', 'tags']
@@ -244,13 +244,13 @@ export const toolSchemas = [
   // Tags
   {
     name: 'get_tags',
-    description: 'タグ一覧を取得',
+    description: 'Get list of tags',
     inputSchema: {
       type: 'object',
       properties: {
         limit: {
           type: 'number',
-          description: '取得するタグ数(デフォルト: 10)',
+          description: 'Number of tags to retrieve (default: 10)',
           minimum: 1,
           maximum: 100
         }
@@ -260,13 +260,13 @@ export const toolSchemas = [
   // Authors
   {
     name: 'get_authors',
-    description: '著者一覧を取得',
+    description: 'Get list of authors',
     inputSchema: {
       type: 'object',
       properties: {
         limit: {
           type: 'number',
-          description: '取得する著者数(デフォルト: 10)',
+          description: 'Number of authors to retrieve (default: 10)',
           minimum: 1,
           maximum: 100
         }
@@ -282,18 +282,18 @@ export const toolSchemas = [
       properties: {
         limit: {
           type: 'number',
-          description: '取得するページ数(デフォルト: 10)',
+          description: 'Number of pages to retrieve (default: 10)',
           minimum: 1,
           maximum: 100
         },
         page: {
           type: 'number',
-          description: 'ページ番号(デフォルト: 1)',
+          description: 'Page number (default: 1)',
           minimum: 1
         },
         order: {
           type: 'string',
-          description: '並び順(デフォルト: published_at DESC)',
+          description: 'Sort order (default: published_at DESC)',
           enum: [
             'published_at DESC',
             'published_at ASC',
@@ -305,7 +305,7 @@ export const toolSchemas = [
         },
         formats: {
           type: 'array',
-          description: '取得するコンテンツフォーマット',
+          description: 'Content formats to retrieve',
           items: {
             type: 'string',
             enum: ['html', 'mobiledoc', 'lexical']
@@ -313,7 +313,7 @@ export const toolSchemas = [
         },
         include: {
           type: 'array',
-          description: '含める関連データ',
+          description: 'Related data to include',
           items: {
             type: 'string',
             enum: ['authors', 'tags']
@@ -324,17 +324,17 @@ export const toolSchemas = [
   },
   {
     name: 'get_page',
-    description: '特定のページを取得',
+    description: 'Get a specific page',
     inputSchema: {
       type: 'object',
       properties: {
         id: {
           type: 'string',
-          description: 'ページのID'
+          description: 'Page ID'
         },
         formats: {
           type: 'array',
-          description: '取得するコンテンツフォーマット',
+          description: 'Content formats to retrieve',
           items: {
             type: 'string',
             enum: ['html', 'mobiledoc', 'lexical']
@@ -342,7 +342,7 @@ export const toolSchemas = [
         },
         include: {
           type: 'array',
-          description: '含める関連データ',
+          description: 'Related data to include',
           items: {
             type: 'string',
             enum: ['authors', 'tags']
@@ -354,53 +354,53 @@ export const toolSchemas = [
   },
   {
     name: 'create_page',
-    description: '新しいページを作成',
+    description: 'Create a new page',
     inputSchema: {
       type: 'object',
       properties: {
         title: {
           type: 'string',
-          description: 'ページのタイトル'
+          description: 'Page title'
         },
         html: {
           type: 'string',
-          description: 'HTML形式のコンテンツ'
+          description: 'Content in HTML format'
         },
         lexical: {
           type: 'string',
-          description: 'Lexical形式のコンテンツ'
+          description: 'Content in Lexical format'
         },
         status: {
           type: 'string',
-          description: 'ページの状態',
+          description: 'Page status',
           enum: ['published', 'draft', 'scheduled']
         },
         visibility: {
           type: 'string',
-          description: '公開範囲',
+          description: 'Visibility scope',
           enum: ['public', 'members', 'paid', 'tiers']
         },
         published_at: {
           type: 'string',
-          description: '公開日時(スケジュール投稿用)'
+          description: 'Publication date (for scheduled pages)'
         },
         tags: {
           type: 'array',
-          description: 'タグのID配列',
+          description: 'Array of tag IDs',
           items: {
             type: 'string'
           }
         },
         authors: {
           type: 'array',
-          description: '著者のID配列',
+          description: 'Array of author IDs',
           items: {
             type: 'string'
           }
         },
         featured: {
           type: 'boolean',
-          description: 'おすすめページとして設定'
+          description: 'Set as featured page'
         }
       },
       required: ['title']
@@ -408,57 +408,57 @@ export const toolSchemas = [
   },
   {
     name: 'update_page',
-    description: 'ページを更新',
+    description: 'Update a page',
     inputSchema: {
       type: 'object',
       properties: {
         id: {
           type: 'string',
-          description: 'ページのID'
+          description: 'Page ID'
         },
         title: {
           type: 'string',
-          description: 'ページのタイトル'
+          description: 'Page title'
         },
         html: {
           type: 'string',
-          description: 'HTML形式のコンテンツ'
+          description: 'Content in HTML format'
         },
         lexical: {
           type: 'string',
-          description: 'Lexical形式のコンテンツ'
+          description: 'Content in Lexical format'
         },
         status: {
           type: 'string',
-          description: 'ページの状態',
+          description: 'Page status',
           enum: ['published', 'draft', 'scheduled']
         },
         visibility: {
           type: 'string',
-          description: '公開範囲',
+          description: 'Visibility scope',
           enum: ['public', 'members', 'paid', 'tiers']
         },
         published_at: {
           type: 'string',
-          description: '公開日時(スケジュール投稿用)'
+          description: 'Publication date (for scheduled pages)'
         },
         tags: {
           type: 'array',
-          description: 'タグのID配列(既存のタグは置換)',
+          description: 'Array of tag IDs (replaces existing tags)',
           items: {
             type: 'string'
           }
         },
         authors: {
           type: 'array',
-          description: '著者のID配列(既存の著者は置換)',
+          description: 'Array of author IDs (replaces existing authors)',
           items: {
             type: 'string'
           }
         },
         featured: {
           type: 'boolean',
-          description: 'おすすめページとして設定'
+          description: 'Set as featured page'
         }
       },
       required: ['id']
@@ -466,13 +466,13 @@ export const toolSchemas = [
   },
   {
     name: 'delete_page',
-    description: 'ページを削除',
+    description: 'Delete a page',
     inputSchema: {
       type: 'object',
       properties: {
         id: {
           type: 'string',
-          description: 'ページのID'
+          description: 'Page ID'
         }
       },
       required: ['id']
@@ -480,17 +480,17 @@ export const toolSchemas = [
   },
   {
     name: 'get_page_by_slug',
-    description: 'スラッグでページを取得',
+    description: 'Get a page by slug',
     inputSchema: {
       type: 'object',
       properties: {
         slug: {
           type: 'string',
-          description: 'ページのスラッグ'
+          description: 'Page slug'
         },
         formats: {
           type: 'array',
-          description: '取得するコンテンツフォーマット',
+          description: 'Content formats to retrieve',
           items: {
             type: 'string',
             enum: ['html', 'mobiledoc', 'lexical']
@@ -498,7 +498,7 @@ export const toolSchemas = [
         },
         include: {
           type: 'array',
-          description: '含める関連データ',
+          description: 'Related data to include',
           items: {
             type: 'string',
             enum: ['authors', 'tags']
@@ -511,24 +511,24 @@ export const toolSchemas = [
   // Members
   {
     name: 'get_members',
-    description: 'メンバー一覧を取得',
+    description: 'Get list of members',
     inputSchema: {
       type: 'object',
       properties: {
         limit: {
           type: 'number',
-          description: '取得するメンバー数(デフォルト: 10)',
+          description: 'Number of members to retrieve (default: 10)',
           minimum: 1,
           maximum: 100
         },
         page: {
           type: 'number',
-          description: 'ページ番号(デフォルト: 1)',
+          description: 'Page number (default: 1)',
           minimum: 1
         },
         order: {
           type: 'string',
-          description: '並び順(デフォルト: created_at DESC)',
+          description: 'Sort order (default: created_at DESC)',
           enum: [
             'created_at DESC',
             'created_at ASC',
@@ -538,7 +538,7 @@ export const toolSchemas = [
         },
         include: {
           type: 'array',
-          description: '含める関連データ',
+          description: 'Related data to include',
           items: {
             type: 'string',
             enum: ['labels', 'newsletters']
@@ -549,17 +549,17 @@ export const toolSchemas = [
   },
   {
     name: 'get_member',
-    description: '特定のメンバーを取得',
+    description: 'Get a specific member',
     inputSchema: {
       type: 'object',
       properties: {
         id: {
           type: 'string',
-          description: 'メンバーのID'
+          description: 'Member ID'
         },
         include: {
           type: 'array',
-          description: '含める関連データ',
+          description: 'Related data to include',
           items: {
             type: 'string',
             enum: ['labels', 'newsletters']
@@ -571,23 +571,23 @@ export const toolSchemas = [
   },
   {
     name: 'search_members',
-    description: 'メンバーを検索',
+    description: 'Search members',
     inputSchema: {
       type: 'object',
       properties: {
         query: {
           type: 'string',
-          description: '検索キーワード'
+          description: 'Search keyword'
         },
         limit: {
           type: 'number',
-          description: '取得するメンバー数(デフォルト: 10)',
+          description: 'Number of members to retrieve (default: 10)',
           minimum: 1,
           maximum: 100
         },
         include: {
           type: 'array',
-          description: '含める関連データ',
+          description: 'Related data to include',
           items: {
             type: 'string',
             enum: ['labels', 'newsletters']
@@ -599,39 +599,39 @@ export const toolSchemas = [
   },
   {
     name: 'create_member',
-    description: '新しいメンバーを作成',
+    description: 'Create a new member',
     inputSchema: {
       type: 'object',
       properties: {
         email: {
           type: 'string',
-          description: 'メールアドレス'
+          description: 'Email address'
         },
         name: {
           type: 'string',
-          description: '名前'
+          description: 'Name'
         },
         note: {
           type: 'string',
-          description: 'メモ'
+          description: 'Note'
         },
         labels: {
           type: 'array',
-          description: 'ラベルのID配列',
+          description: 'Array of label IDs',
           items: {
             type: 'string'
           }
         },
         newsletters: {
           type: 'array',
-          description: 'ニュースレターのID配列',
+          description: 'Array of newsletter IDs',
           items: {
             type: 'string'
           }
         },
         subscribed: {
           type: 'boolean',
-          description: 'ニュースレター購読状態'
+          description: 'Newsletter subscription status'
         }
       },
       required: ['email']
@@ -639,43 +639,43 @@ export const toolSchemas = [
   },
   {
     name: 'update_member',
-    description: 'メンバーを更新',
+    description: 'Update a member',
     inputSchema: {
       type: 'object',
       properties: {
         id: {
           type: 'string',
-          description: 'メンバーのID'
+          description: 'Member ID'
         },
         email: {
           type: 'string',
-          description: 'メールアドレス'
+          description: 'Email address'
         },
         name: {
           type: 'string',
-          description: '名前'
+          description: 'Name'
         },
         note: {
           type: 'string',
-          description: 'メモ'
+          description: 'Note'
         },
         labels: {
           type: 'array',
-          description: 'ラベルのID配列(既存のラベルは置換)',
+          description: 'Array of label IDs (replaces existing labels)',
           items: {
             type: 'string'
           }
         },
         newsletters: {
           type: 'array',
-          description: 'ニュースレターのID配列(既存のニュースレターは置換)',
+          description: 'Array of newsletter IDs (replaces existing newsletters)',
           items: {
             type: 'string'
           }
         },
         subscribed: {
           type: 'boolean',
-          description: 'ニュースレター購読状態'
+          description: 'Newsletter subscription status'
         }
       },
       required: ['id']
@@ -683,13 +683,13 @@ export const toolSchemas = [
   },
   {
     name: 'delete_member',
-    description: 'メンバーを削除',
+    description: 'Delete a member',
     inputSchema: {
       type: 'object',
       properties: {
         id: {
           type: 'string',
-          description: 'メンバーのID'
+          description: 'Member ID'
         }
       },
       required: ['id']
@@ -698,22 +698,22 @@ export const toolSchemas = [
   // Images
   {
     name: 'upload_image',
-    description: '画像をアップロード',
+    description: 'Upload an image',
     inputSchema: {
       type: 'object',
       properties: {
         file: {
           type: 'string',
-          description: 'アップロードする画像ファイル(Base64)'
+          description: 'Image file to upload (Base64)'
         },
         purpose: {
           type: 'string',
-          description: '画像の用途',
+          description: 'Image purpose',
           enum: ['image', 'profile_image', 'icon']
         },
         ref: {
           type: 'string',
-          description: '画像の参照情報(オプション)'
+          description: 'Image reference info (optional)'
         }
       },
       required: ['file']

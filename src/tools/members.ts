@@ -15,24 +15,24 @@ const ghostApi = createGhostApi();
 
 export const getMembersSchema = {
   name: 'get_members',
-  description: 'メンバー一覧を取得',
+  description: 'Get list of members',
   inputSchema: {
     type: 'object',
     properties: {
       limit: {
         type: 'number',
-        description: '取得するメンバー数(デフォルト: 10)',
+        description: 'Number of members to retrieve (default: 10)',
         minimum: 1,
         maximum: 100
       },
       page: {
         type: 'number',
-        description: 'ページ番号(デフォルト: 1)',
+        description: 'Page number (default: 1)',
         minimum: 1
       },
       order: {
         type: 'string',
-        description: '並び順(デフォルト: created_at DESC)',
+        description: 'Sort order (default: created_at DESC)',
         enum: [
           'created_at DESC',
           'created_at ASC',
@@ -42,7 +42,7 @@ export const getMembersSchema = {
       },
       include: {
         type: 'array',
-        description: '含める関連データ',
+        description: 'Related data to include',
         items: {
           type: 'string',
           enum: ['labels', 'newsletters']
@@ -54,17 +54,17 @@ export const getMembersSchema = {
 
 export const getMemberSchema = {
   name: 'get_member',
-  description: '特定のメンバーを取得',
+  description: 'Get a specific member',
   inputSchema: {
     type: 'object',
     properties: {
       id: {
         type: 'string',
-        description: 'メンバーのID'
+        description: 'Member ID'
       },
       include: {
         type: 'array',
-        description: '含める関連データ',
+        description: 'Related data to include',
         items: {
           type: 'string',
           enum: ['labels', 'newsletters']
@@ -77,39 +77,39 @@ export const getMemberSchema = {
 
 export const createMemberSchema = {
   name: 'create_member',
-  description: '新しいメンバーを作成',
+  description: 'Create a new member',
   inputSchema: {
     type: 'object',
     properties: {
       email: {
         type: 'string',
-        description: 'メールアドレス'
+        description: 'Email address'
       },
       name: {
         type: 'string',
-        description: '名前'
+        description: 'Name'
       },
       note: {
         type: 'string',
-        description: 'メモ'
+        description: 'Note'
       },
       labels: {
         type: 'array',
-        description: 'ラベルのID配列',
+        description: 'Array of label IDs',
         items: {
           type: 'string'
         }
       },
       newsletters: {
         type: 'array',
-        description: 'ニュースレターのID配列',
+        description: 'Array of newsletter IDs',
         items: {
           type: 'string'
         }
       },
       subscribed: {
         type: 'boolean',
-        description: 'ニュースレター購読状態'
+        description: 'Newsletter subscription status'
       }
     },
     required: ['email']
@@ -118,43 +118,43 @@ export const createMemberSchema = {
 
 export const updateMemberSchema = {
   name: 'update_member',
-  description: 'メンバーを更新',
+  description: 'Update a member',
   inputSchema: {
     type: 'object',
     properties: {
       id: {
         type: 'string',
-        description: 'メンバーのID'
+        description: 'Member ID'
       },
       email: {
         type: 'string',
-        description: 'メールアドレス'
+        description: 'Email address'
       },
       name: {
         type: 'string',
-        description: '名前'
+        description: 'Name'
       },
       note: {
         type: 'string',
-        description: 'メモ'
+        description: 'Note'
       },
       labels: {
         type: 'array',
-        description: 'ラベルのID配列(既存のラベルは置換)',
+        description: 'Array of label IDs (replaces existing labels)',
         items: {
           type: 'string'
         }
       },
       newsletters: {
         type: 'array',
-        description: 'ニュースレターのID配列(既存のニュースレターは置換)',
+        description: 'Array of newsletter IDs (replaces existing newsletters)',
         items: {
           type: 'string'
         }
       },
       subscribed: {
         type: 'boolean',
-        description: 'ニュースレター購読状態'
+        description: 'Newsletter subscription status'
       }
     },
     required: ['id']
@@ -163,13 +163,13 @@ export const updateMemberSchema = {
 
 export const deleteMemberSchema = {
   name: 'delete_member',
-  description: 'メンバーを削除',
+  description: 'Delete a member',
   inputSchema: {
     type: 'object',
     properties: {
       id: {
         type: 'string',
-        description: 'メンバーのID'
+        description: 'Member ID'
       }
     },
     required: ['id']
@@ -178,23 +178,23 @@ export const deleteMemberSchema = {
 
 export const searchMembersSchema = {
   name: 'search_members',
-  description: 'メンバーを検索',
+  description: 'Search members',
   inputSchema: {
     type: 'object',
     properties: {
       query: {
         type: 'string',
-        description: '検索キーワード'
+        description: 'Search keyword'
       },
       limit: {
         type: 'number',
-        description: '取得するメンバー数(デフォルト: 10)',
+        description: 'Number of members to retrieve (default: 10)',
         minimum: 1,
         maximum: 100
       },
       include: {
         type: 'array',
-        description: '含める関連データ',
+        description: 'Related data to include',
         items: {
           type: 'string',
           enum: ['labels', 'newsletters']
@@ -315,7 +315,7 @@ export const deleteMember = async ({ id }: { id: string }): Promise<ToolResponse
       content: [
         {
           type: 'text',
-          text: 'メンバーが正常に削除されました',
+          text: 'Member deleted successfully',
         },
       ],
     };
