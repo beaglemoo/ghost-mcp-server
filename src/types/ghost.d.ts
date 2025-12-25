@@ -168,10 +168,12 @@ declare module '@tryghost/admin-api' {
   }
 
   interface ImageUploadOptions {
-    file: FormData;
+    file: FormData | string;
     purpose?: string;
     ref?: string;
   }
+
+  type ImageUploadInput = ImageUploadOptions | FormData;
 
   interface GhostAPI {
     posts: {
@@ -203,7 +205,7 @@ declare module '@tryghost/admin-api' {
       delete(params: { id: string }): Promise<void>;
     };
     images: {
-      upload(options: ImageUploadOptions): Promise<ImageUploadResponse>;
+      upload(options: ImageUploadInput): Promise<ImageUploadResponse>;
     };
   }
 
