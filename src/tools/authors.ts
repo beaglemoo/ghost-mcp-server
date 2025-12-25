@@ -7,24 +7,24 @@ const ghostApi = createGhostApi();
 
 export const getAuthorsSchema = {
   name: 'get_authors',
-  description: '著者一覧を取得',
+  description: 'Get list of authors',
   inputSchema: {
     type: 'object',
     properties: {
       limit: {
         type: 'number',
-        description: '取得する著者数(デフォルト: 10)',
+        description: 'Number of authors to retrieve (default: 10)',
         minimum: 1,
         maximum: 100
       },
       page: {
         type: 'number',
-        description: 'ページ番号(デフォルト: 1)',
+        description: 'Page number (default: 1)',
         minimum: 1
       },
       order: {
         type: 'string',
-        description: '並び順(デフォルト: name ASC)',
+        description: 'Sort order (default: name ASC)',
         enum: [
           'name ASC',
           'name DESC',
@@ -36,12 +36,12 @@ export const getAuthorsSchema = {
       },
       include: {
         type: 'string',
-        description: '含める関連データ',
+        description: 'Related data to include',
         enum: ['count.posts']
       },
       filter: {
         type: 'string',
-        description: 'フィルター条件(例: slug:john)'
+        description: 'Filter condition (e.g., slug:john)'
       }
     }
   },

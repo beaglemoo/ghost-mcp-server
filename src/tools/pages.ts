@@ -21,18 +21,18 @@ export const getPagesSchema = {
     properties: {
       limit: {
         type: 'number',
-        description: '取得するページ数(デフォルト: 10)',
+        description: 'Number of pages to retrieve (default: 10)',
         minimum: 1,
         maximum: 100
       },
       page: {
         type: 'number',
-        description: 'ページ番号(デフォルト: 1)',
+        description: 'Page number (default: 1)',
         minimum: 1
       },
       order: {
         type: 'string',
-        description: '並び順(デフォルト: published_at DESC)',
+        description: 'Sort order (default: published_at DESC)',
         enum: [
           'published_at DESC',
           'published_at ASC',
@@ -44,7 +44,7 @@ export const getPagesSchema = {
       },
       formats: {
         type: 'array',
-        description: '取得するコンテンツフォーマット',
+        description: 'Content formats to retrieve',
         items: {
           type: 'string',
           enum: ['html', 'mobiledoc', 'lexical']
@@ -52,7 +52,7 @@ export const getPagesSchema = {
       },
       include: {
         type: 'array',
-        description: '含める関連データ',
+        description: 'Related data to include',
         items: {
           type: 'string',
           enum: ['authors', 'tags']
@@ -64,17 +64,17 @@ export const getPagesSchema = {
 
 export const getPageSchema = {
   name: 'get_page',
-  description: '特定のページを取得',
+  description: 'Get a specific page',
   inputSchema: {
     type: 'object',
     properties: {
       id: {
         type: 'string',
-        description: 'ページのID'
+        description: 'Page ID'
       },
       formats: {
         type: 'array',
-        description: '取得するコンテンツフォーマット',
+        description: 'Content formats to retrieve',
         items: {
           type: 'string',
           enum: ['html', 'mobiledoc', 'lexical']
@@ -82,7 +82,7 @@ export const getPageSchema = {
       },
       include: {
         type: 'array',
-        description: '含める関連データ',
+        description: 'Related data to include',
         items: {
           type: 'string',
           enum: ['authors', 'tags']
@@ -95,53 +95,53 @@ export const getPageSchema = {
 
 export const createPageSchema = {
   name: 'create_page',
-  description: '新しいページを作成',
+  description: 'Create a new page',
   inputSchema: {
     type: 'object',
     properties: {
       title: {
         type: 'string',
-        description: 'ページのタイトル'
+        description: 'Page title'
       },
       html: {
         type: 'string',
-        description: 'HTML形式のコンテンツ'
+        description: 'Content in HTML format'
       },
       lexical: {
         type: 'string',
-        description: 'Lexical形式のコンテンツ'
+        description: 'Content in Lexical format'
       },
       status: {
         type: 'string',
-        description: 'ページの状態',
+        description: 'Page status',
         enum: ['published', 'draft', 'scheduled']
       },
       visibility: {
         type: 'string',
-        description: '公開範囲',
+        description: 'Visibility scope',
         enum: ['public', 'members', 'paid', 'tiers']
       },
       published_at: {
         type: 'string',
-        description: '公開日時(スケジュール投稿用)'
+        description: 'Publication date (for scheduled pages)'
       },
       tags: {
         type: 'array',
-        description: 'タグのID配列',
+        description: 'Array of tag IDs',
         items: {
           type: 'string'
         }
       },
       authors: {
         type: 'array',
-        description: '著者のID配列',
+        description: 'Array of author IDs',
         items: {
           type: 'string'
         }
       },
       featured: {
         type: 'boolean',
-        description: 'おすすめページとして設定'
+        description: 'Set as featured page'
       }
     },
     required: ['title']
@@ -150,57 +150,57 @@ export const createPageSchema = {
 
 export const updatePageSchema = {
   name: 'update_page',
-  description: 'ページを更新',
+  description: 'Update a page',
   inputSchema: {
     type: 'object',
     properties: {
       id: {
         type: 'string',
-        description: 'ページのID'
+        description: 'Page ID'
       },
       title: {
         type: 'string',
-        description: 'ページのタイトル'
+        description: 'Page title'
       },
       html: {
         type: 'string',
-        description: 'HTML形式のコンテンツ'
+        description: 'Content in HTML format'
       },
       lexical: {
         type: 'string',
-        description: 'Lexical形式のコンテンツ'
+        description: 'Content in Lexical format'
       },
       status: {
         type: 'string',
-        description: 'ページの状態',
+        description: 'Page status',
         enum: ['published', 'draft', 'scheduled']
       },
       visibility: {
         type: 'string',
-        description: '公開範囲',
+        description: 'Visibility scope',
         enum: ['public', 'members', 'paid', 'tiers']
       },
       published_at: {
         type: 'string',
-        description: '公開日時(スケジュール投稿用)'
+        description: 'Publication date (for scheduled pages)'
       },
       tags: {
         type: 'array',
-        description: 'タグのID配列(既存のタグは置換)',
+        description: 'Array of tag IDs (replaces existing tags)',
         items: {
           type: 'string'
         }
       },
       authors: {
         type: 'array',
-        description: '著者のID配列(既存の著者は置換)',
+        description: 'Array of author IDs (replaces existing authors)',
         items: {
           type: 'string'
         }
       },
       featured: {
         type: 'boolean',
-        description: 'おすすめページとして設定'
+        description: 'Set as featured page'
       }
     },
     required: ['id']
@@ -209,13 +209,13 @@ export const updatePageSchema = {
 
 export const deletePageSchema = {
   name: 'delete_page',
-  description: 'ページを削除',
+  description: 'Delete a page',
   inputSchema: {
     type: 'object',
     properties: {
       id: {
         type: 'string',
-        description: 'ページのID'
+        description: 'Page ID'
       }
     },
     required: ['id']
@@ -224,17 +224,17 @@ export const deletePageSchema = {
 
 export const getPageBySlugSchema = {
   name: 'get_page_by_slug',
-  description: 'スラッグでページを取得',
+  description: 'Get a page by slug',
   inputSchema: {
     type: 'object',
     properties: {
       slug: {
         type: 'string',
-        description: 'ページのスラッグ'
+        description: 'Page slug'
       },
       formats: {
         type: 'array',
-        description: '取得するコンテンツフォーマット',
+        description: 'Content formats to retrieve',
         items: {
           type: 'string',
           enum: ['html', 'mobiledoc', 'lexical']
@@ -242,7 +242,7 @@ export const getPageBySlugSchema = {
       },
       include: {
         type: 'array',
-        description: '含める関連データ',
+        description: 'Related data to include',
         items: {
           type: 'string',
           enum: ['authors', 'tags']
@@ -322,10 +322,10 @@ export const createPage = async (params: CreatePageParams): Promise<ToolResponse
 
 export const updatePage = async ({ id, ...params }: { id: string } & UpdatePageParams): Promise<ToolResponse> => {
   try {
-    // 現在のページの情報を取得
+    // Get current page info
     const currentPage = await ghostApi.pages.read({ id });
-    
-    // 現在のupdated_atを使用
+
+    // Use current updated_at
     params.updated_at = currentPage.updated_at || new Date().toISOString();
     
     const page = await ghostApi.pages.edit({ id, ...params });
@@ -349,7 +349,7 @@ export const deletePage = async ({ id }: { id: string }): Promise<ToolResponse> 
       content: [
         {
           type: 'text',
-          text: 'ページが正常に削除されました',
+          text: 'Page deleted successfully',
         },
       ],
     };
@@ -375,7 +375,7 @@ export const getPageBySlug = async ({
 
     const [page] = await ghostApi.pages.browse(params);
     if (!page) {
-      throw new Error(`スラッグ "${slug}" のページが見つかりませんでした`);
+      throw new Error(`Page with slug "${slug}" not found`);
     }
 
     return {

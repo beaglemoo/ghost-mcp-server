@@ -5,19 +5,19 @@ import { handleGhostApiError } from '../utils/error.js';
 import { ImageUploadParams, isImageUploadParams, ImageResponse } from '../types/index.js';
 import imageSize from 'image-size';
 
-// 許可される画像フォーマット
+// Allowed image formats
 const ALLOWED_FORMATS = {
   image: ['.webp', '.jpg', '.jpeg', '.gif', '.png', '.svg'],
   profile_image: ['.webp', '.jpg', '.jpeg', '.gif', '.png', '.svg'],
   icon: ['.webp', '.jpg', '.jpeg', '.gif', '.png', '.svg', '.ico']
 };
 
-// 最大ファイルサイズ (2MB)
+// Maximum file size (2MB)
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
-// 画像フォーマットのバリデーション
+// Image format validation
 const validateImageFormat = (buffer: Buffer, mimeType: string, purpose: string = 'image'): void => {
-  // ファイルサイズのチェック
+  // Check file size
   if (buffer.length > MAX_FILE_SIZE) {
     throw new McpError(
       ErrorCode.InvalidParams,
@@ -25,7 +25,7 @@ const validateImageFormat = (buffer: Buffer, mimeType: string, purpose: string =
     );
   }
 
-  // MIMEタイプから拡張子を取得
+  // Get extension from MIME type
   const extension = `.${mimeType.split('/')[1]}`.toLowerCase();
   const allowedFormats = ALLOWED_FORMATS[purpose as keyof typeof ALLOWED_FORMATS];
 
@@ -36,7 +36,7 @@ const validateImageFormat = (buffer: Buffer, mimeType: string, purpose: string =
     );
   }
 
-  // profile_imageとiconの場合は正方形のチェックを追加
+  // Add square dimension check for profile_image and icon
   if (purpose === 'profile_image' || purpose === 'icon') {
     try {
       const dimensions = imageSize.imageSize(buffer);
@@ -58,7 +58,7 @@ const validateImageFormat = (buffer: Buffer, mimeType: string, purpose: string =
   }
 };
 
-// Base64からBufferへの変換とMIMEタイプの抽出
+// Convert Base64 to Buffer and extract MIME type
 const parseBase64Image = (base64Data: string): { buffer: Buffer; mimeType: string } => {
   const matches = base64Data.match(/^data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);base64,(.+)$/);
   if (!matches) {
@@ -80,7 +80,7 @@ const parseBase64Image = (base64Data: string): { buffer: Buffer; mimeType: strin
   }
 };
 
-// 画像アップロード関数
+// Image upload function
 export const uploadImage = async (args: unknown): Promise<{ content: { url: string; ref?: string } }> => {
   if (!isImageUploadParams(args)) {
     throw new McpError(
@@ -92,13 +92,13 @@ export const uploadImage = async (args: unknown): Promise<{ content: { url: stri
   try {
     const { file, purpose, ref } = args;
 
-    // Base64データをパースしてバッファとMIMEタイプを取得
+    // Parse Base64 data to get buffer and MIME type
     const { buffer, mimeType } = parseBase64Image(file);
 
-    // 画像フォーマットのバリデーション
+    // Validate image format
     validateImageFormat(buffer, mimeType, purpose);
 
-    // FormDataの構築
+    // Build FormData
     const formData = new FormData() as any;
     formData.append('file', buffer, {
       filename: `image${mimeType.replace('image/', '.')}`,
@@ -107,10 +107,10 @@ export const uploadImage = async (args: unknown): Promise<{ content: { url: stri
     if (purpose) formData.append('purpose', purpose);
     if (ref) formData.append('ref', ref);
 
-    // Ghost Admin APIクライアントの作成
+    // Create Ghost Admin API client
     const api = createGhostApi();
 
-    // 画像アップロードリクエストの送信
+    // Send image upload request
     const response = await api.images.upload({
       file: formData,
       purpose,
@@ -128,25 +128,25 @@ export const uploadImage = async (args: unknown): Promise<{ content: { url: stri
   }
 };
 
-// ツールスキーマの定義
+// Tool schema definition
 export const uploadImageSchema = {
   name: 'upload_image',
-  description: '画像をアップロード',
+  description: 'Upload an image',
   inputSchema: {
     type: 'object',
     properties: {
       file: {
         type: 'string',
-        description: 'アップロードする画像ファイル(Base64)'
+        description: 'Image file to upload (Base64)'
       },
       purpose: {
         type: 'string',
-        description: '画像の用途',
+        description: 'Image purpose',
         enum: ['image', 'profile_image', 'icon']
       },
       ref: {
         type: 'string',
-        description: '画像の参照情報(オプション)'
+        description: 'Image reference info (optional)'
       }
     },
     required: ['file']

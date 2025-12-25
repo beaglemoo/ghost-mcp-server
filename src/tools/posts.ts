@@ -22,18 +22,18 @@ export const getPostsSchema = {
     properties: {
       limit: {
         type: 'number',
-        description: '取得する記事数(デフォルト: 10)',
+        description: 'Number of posts to retrieve (default: 10)',
         minimum: 1,
         maximum: 100
       },
       page: {
         type: 'number',
-        description: 'ページ番号(デフォルト: 1)',
+        description: 'Page number (default: 1)',
         minimum: 1
       },
       order: {
         type: 'string',
-        description: '並び順(デフォルト: published_at DESC)',
+        description: 'Sort order (default: published_at DESC)',
         enum: [
           'published_at DESC',
           'published_at ASC',
@@ -45,7 +45,7 @@ export const getPostsSchema = {
       },
       formats: {
         type: 'array',
-        description: '取得するコンテンツフォーマット',
+        description: 'Content formats to retrieve',
         items: {
           type: 'string',
           enum: ['html', 'mobiledoc', 'lexical']
@@ -53,7 +53,7 @@ export const getPostsSchema = {
       },
       include: {
         type: 'array',
-        description: '含める関連データ',
+        description: 'Related data to include',
         items: {
           type: 'string',
           enum: ['authors', 'tags']
@@ -65,17 +65,17 @@ export const getPostsSchema = {
 
 export const getPostSchema = {
   name: 'get_post',
-  description: '特定の記事を取得',
+  description: 'Get a specific post',
   inputSchema: {
     type: 'object',
     properties: {
       id: {
         type: 'string',
-        description: '記事のID'
+        description: 'Post ID'
       },
       formats: {
         type: 'array',
-        description: '取得するコンテンツフォーマット',
+        description: 'Content formats to retrieve',
         items: {
           type: 'string',
           enum: ['html', 'mobiledoc', 'lexical']
@@ -83,7 +83,7 @@ export const getPostSchema = {
       },
       include: {
         type: 'array',
-        description: '含める関連データ',
+        description: 'Related data to include',
         items: {
           type: 'string',
           enum: ['authors', 'tags']
@@ -96,65 +96,65 @@ export const getPostSchema = {
 
 export const createPostSchema = {
   name: 'create_post',
-  description: '新しい記事を作成',
+  description: 'Create a new post',
   inputSchema: {
     type: 'object',
     properties: {
       title: {
         type: 'string',
-        description: '記事のタイトル'
+        description: 'Post title'
       },
       html: {
         type: 'string',
-        description: 'HTML形式のコンテンツ'
+        description: 'Content in HTML format'
       },
       lexical: {
         type: 'string',
-        description: 'Lexical形式のコンテンツ'
+        description: 'Content in Lexical format'
       },
       status: {
         type: 'string',
-        description: '記事の状態',
+        description: 'Post status',
         enum: ['published', 'draft', 'scheduled']
       },
       visibility: {
         type: 'string',
-        description: '公開範囲',
+        description: 'Visibility scope',
         enum: ['public', 'members', 'paid', 'tiers']
       },
       published_at: {
         type: 'string',
-        description: '公開日時(スケジュール投稿用)'
+        description: 'Publication date (for scheduled posts)'
       },
       tags: {
         type: 'array',
-        description: 'タグのID配列',
+        description: 'Array of tag IDs',
         items: {
           type: 'string'
         }
       },
       authors: {
         type: 'array',
-        description: '著者のID配列',
+        description: 'Array of author IDs',
         items: {
           type: 'string'
         }
       },
       featured: {
         type: 'boolean',
-        description: 'おすすめ記事として設定'
+        description: 'Set as featured post'
       },
       email_subject: {
         type: 'string',
-        description: 'メール送信時の件名'
+        description: 'Email subject line'
       },
       email_only: {
         type: 'boolean',
-        description: 'メールのみの投稿'
+        description: 'Email-only post'
       },
       newsletter: {
         type: 'boolean',
-        description: 'メール送信を行うかどうか'
+        description: 'Whether to send email'
       }
     },
     required: ['title']
@@ -163,69 +163,69 @@ export const createPostSchema = {
 
 export const updatePostSchema = {
   name: 'update_post',
-  description: '記事を更新',
+  description: 'Update a post',
   inputSchema: {
     type: 'object',
     properties: {
       id: {
         type: 'string',
-        description: '記事のID'
+        description: 'Post ID'
       },
       title: {
         type: 'string',
-        description: '記事のタイトル'
+        description: 'Post title'
       },
       html: {
         type: 'string',
-        description: 'HTML形式のコンテンツ'
+        description: 'Content in HTML format'
       },
       lexical: {
         type: 'string',
-        description: 'Lexical形式のコンテンツ'
+        description: 'Content in Lexical format'
       },
       status: {
         type: 'string',
-        description: '記事の状態',
+        description: 'Post status',
         enum: ['published', 'draft', 'scheduled']
       },
       visibility: {
         type: 'string',
-        description: '公開範囲',
+        description: 'Visibility scope',
         enum: ['public', 'members', 'paid', 'tiers']
       },
       published_at: {
         type: 'string',
-        description: '公開日時(スケジュール投稿用)'
+        description: 'Publication date (for scheduled posts)'
       },
       tags: {
         type: 'array',
-        description: 'タグのID配列(既存のタグは置換)',
+        description: 'Array of tag IDs (replaces existing tags)',
         items: {
           type: 'string'
         }
       },
       authors: {
         type: 'array',
-        description: '著者のID配列(既存の著者は置換)',
+        description: 'Array of author IDs (replaces existing authors)',
         items: {
           type: 'string'
         }
       },
       featured: {
         type: 'boolean',
-        description: 'おすすめ記事として設定'
+        description: 'Set as featured post'
       },
       email_subject: {
         type: 'string',
-        description: 'メール送信時の件名'
+        description: 'Email subject line'
       },
       email_only: {
         type: 'boolean',
-        description: 'メールのみの投稿'
+        description: 'Email-only post'
       },
       newsletter: {
         type: 'boolean',
-        description: 'メール送信を行うかどうか'
+        description: 'Whether to send email'
       }
     },
     required: ['id']
@@ -234,13 +234,13 @@ export const updatePostSchema = {
 
 export const deletePostSchema = {
   name: 'delete_post',
-  description: '記事を削除',
+  description: 'Delete a post',
   inputSchema: {
     type: 'object',
     properties: {
       id: {
         type: 'string',
-        description: '記事のID'
+        description: 'Post ID'
       }
     },
     required: ['id']
@@ -249,17 +249,17 @@ export const deletePostSchema = {
 
 export const getPostBySlugSchema = {
   name: 'get_post_by_slug',
-  description: 'スラッグで記事を取得',
+  description: 'Get a post by slug',
   inputSchema: {
     type: 'object',
     properties: {
       slug: {
         type: 'string',
-        description: '記事のスラッグ'
+        description: 'Post slug'
       },
       formats: {
         type: 'array',
-        description: '取得するコンテンツフォーマット',
+        description: 'Content formats to retrieve',
         items: {
           type: 'string',
           enum: ['html', 'mobiledoc', 'lexical']
@@ -267,7 +267,7 @@ export const getPostBySlugSchema = {
       },
       include: {
         type: 'array',
-        description: '含める関連データ',
+        description: 'Related data to include',
         items: {
           type: 'string',
           enum: ['authors', 'tags']
@@ -280,23 +280,23 @@ export const getPostBySlugSchema = {
 
 export const searchPostsSchema = {
   name: 'search_posts',
-  description: '記事を検索',
+  description: 'Search posts',
   inputSchema: {
     type: 'object',
     properties: {
       query: {
         type: 'string',
-        description: '検索キーワード'
+        description: 'Search keyword'
       },
       limit: {
         type: 'number',
-        description: '取得する記事数(デフォルト: 10)',
+        description: 'Number of posts to retrieve (default: 10)',
         minimum: 1,
         maximum: 100
       },
       formats: {
         type: 'array',
-        description: '取得するコンテンツフォーマット',
+        description: 'Content formats to retrieve',
         items: {
           type: 'string',
           enum: ['html', 'mobiledoc', 'lexical']
@@ -304,7 +304,7 @@ export const searchPostsSchema = {
       },
       include: {
         type: 'array',
-        description: '含める関連データ',
+        description: 'Related data to include',
         items: {
           type: 'string',
           enum: ['authors', 'tags']
@@ -410,7 +410,7 @@ export const createPost = async (params: CreatePostParams): Promise<ToolResponse
 
 export const updatePost = async ({ id, ...params }: { id: string } & UpdatePostParams): Promise<ToolResponse> => {
   try {
-    // updated_atは必須
+    // updated_at is required
     if (!params.updated_at) {
       params.updated_at = new Date().toISOString();
     }
@@ -435,7 +435,7 @@ export const deletePost = async ({ id }: { id: string }): Promise<ToolResponse> 
       content: [
         {
           type: 'text',
-          text: '記事が正常に削除されました',
+          text: 'Post deleted successfully',
         },
       ],
     };
@@ -461,7 +461,7 @@ export const getPostBySlug = async ({
 
     const [post] = await ghostApi.posts.browse(params);
     if (!post) {
-      throw new Error(`スラッグ "${slug}" の記事が見つかりませんでした`);
+      throw new Error(`Post with slug "${slug}" not found`);
     }
 
     return {
