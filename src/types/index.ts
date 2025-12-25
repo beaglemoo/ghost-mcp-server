@@ -33,9 +33,25 @@ export interface ImageUploadParams {
   ref?: string;
 }
 
+export interface ImageUrlUploadParams {
+  url: string;
+  filename?: string;
+  purpose?: ImagePurpose;
+  ref?: string;
+}
+
 export interface ImageResponse {
   url: string;
   ref?: string;
+}
+
+export interface ImageUrlUploadResponse {
+  success: boolean;
+  ghost_url?: string;
+  filename?: string;
+  size_bytes?: number;
+  mime_type?: string;
+  error?: string;
 }
 
 export const isImageUploadParams = (args: unknown): args is ImageUploadParams => {
@@ -43,6 +59,16 @@ export const isImageUploadParams = (args: unknown): args is ImageUploadParams =>
   const obj = args as Record<string, unknown>;
 
   return typeof obj.file === 'string' &&
+    (obj.purpose === undefined || ['image', 'profile_image', 'icon'].includes(obj.purpose as string)) &&
+    (obj.ref === undefined || typeof obj.ref === 'string');
+};
+
+export const isImageUrlUploadParams = (args: unknown): args is ImageUrlUploadParams => {
+  if (typeof args !== 'object' || args === null) return false;
+  const obj = args as Record<string, unknown>;
+
+  return typeof obj.url === 'string' &&
+    (obj.filename === undefined || typeof obj.filename === 'string') &&
     (obj.purpose === undefined || ['image', 'profile_image', 'icon'].includes(obj.purpose as string)) &&
     (obj.ref === undefined || typeof obj.ref === 'string');
 };

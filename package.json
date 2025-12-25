@@ -1,6 +1,6 @@
 {
-  "name": "@mtane0412/ghost-mcp-server",
-  "version": "1.0.2",
+  "name": "@densh/ghost-mcp-server",
+  "version": "1.1.2",
   "description": "Ghost MCP Server for interacting with Ghost CMS API",
   "type": "module",
   "main": "build/index.js",
@@ -31,13 +31,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mtane0412/ghost-mcp-server.git"
+    "url": "git+https://github.com/denishartl/ghost-mcp-server.git"
   },
   "keywords": [],
-  "author": "mtane0412",
+  "author": "densh",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mtane0412/ghost-mcp-server/issues"
+    "url": "https://github.com/denishartl/ghost-mcp-server/issues"
   },
-  "homepage": "https://github.com/mtane0412/ghost-mcp-server#readme"
+  "homepage": "https://github.com/denishartl/ghost-mcp-server#readme"
 }

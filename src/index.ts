@@ -30,6 +30,7 @@ import {
   updateMember,
   deleteMember,
   uploadImage,
+  uploadImageFromUrl,
   toolSchemas
 } from './tools/index.js';
 import {
@@ -40,6 +41,7 @@ import {
   isCreateMemberParams,
   isUpdateMemberParams,
   isImageUploadParams,
+  isImageUrlUploadParams,
   PostFormat,
   PostInclude,
   PostStatus,
@@ -309,6 +311,12 @@ class GhostServer {
               throw new McpError(ErrorCode.InvalidParams, 'Invalid image upload parameters');
             }
             return uploadImage(args);
+
+          case 'upload_image_from_url':
+            if (!isImageUrlUploadParams(args)) {
+              throw new McpError(ErrorCode.InvalidParams, 'Invalid image URL upload parameters');
+            }
+            return uploadImageFromUrl(args);
 
           default:
             throw new McpError(

@@ -718,5 +718,32 @@ export const toolSchemas = [
       },
       required: ['file']
     }
+  },
+  {
+    name: 'upload_image_from_url',
+    description: 'Download an image from a URL and upload it to Ghost. Returns the permanent Ghost URL.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        url: {
+          type: 'string',
+          description: 'Source URL of the image to download'
+        },
+        filename: {
+          type: 'string',
+          description: 'Desired filename (without extension). If omitted, derived from URL or auto-generated.'
+        },
+        purpose: {
+          type: 'string',
+          description: 'Ghost image purpose: "image" (default) for post content, "profile_image", or "icon"',
+          enum: ['image', 'profile_image', 'icon']
+        },
+        ref: {
+          type: 'string',
+          description: 'Reference identifier for tracking'
+        }
+      },
+      required: ['url']
+    }
   }
 ];

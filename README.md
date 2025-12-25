@@ -9,7 +9,7 @@ A Model Context Protocol (MCP) server that integrates with the Ghost Admin API. 
 - Tag Management
 - Author Management
 - Member Management (create, read, update, delete, search)
-- Image Upload Support
+- Image Upload (Base64 and URL-based)
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ A Model Context Protocol (MCP) server that integrates with the Ghost Admin API. 
 Install the package using npm:
 
 ```bash
-npm install @mtane0412/ghost-mcp-server
+npm install @densh/ghost-mcp-server
 ```
 
 ## Configuration
@@ -33,18 +33,18 @@ npm install @mtane0412/ghost-mcp-server
 
 ```bash
 # macOS/Linux
-export GHOST_URL="https://your-ghost-blog.com"
+export GHOST_API_URL="https://your-ghost-blog.com"
 export GHOST_ADMIN_API_KEY="your_admin_api_key"
 
 # Windows (PowerShell)
-$env:GHOST_URL="https://your-ghost-blog.com"
+$env:GHOST_API_URL="https://your-ghost-blog.com"
 $env:GHOST_ADMIN_API_KEY="your_admin_api_key"
 ```
 
 Alternatively, you can create a `.env` file:
 
 ```env
-GHOST_URL=https://your-ghost-blog.com
+GHOST_API_URL=https://your-ghost-blog.com
 GHOST_ADMIN_API_KEY=your_admin_api_key
 ```
 
@@ -53,7 +53,7 @@ GHOST_ADMIN_API_KEY=your_admin_api_key
 After installation, start the server with:
 
 ```bash
-npx @mtane0412/ghost-mcp-server
+npx @densh/ghost-mcp-server
 ```
 
 ## Available Tools
@@ -168,7 +168,7 @@ Input:
 ```
 
 ### upload_image
-Uploads an image.
+Uploads an image from Base64 data.
 
 Input:
 ```json
@@ -177,6 +177,40 @@ Input:
   "purpose": "string" // Optional: Image purpose (image/profile_image/icon)
 }
 ```
+
+### upload_image_from_url
+Downloads an image from a URL and uploads it to Ghost. Returns the permanent Ghost URL.
+
+Input:
+```json
+{
+  "url": "string",      // Required: Source URL of the image to download
+  "filename": "string", // Optional: Desired filename (without extension)
+  "purpose": "string",  // Optional: Image purpose (image/profile_image/icon, default: image)
+  "ref": "string"       // Optional: Reference identifier for tracking
+}
+```
+
+Output (success):
+```json
+{
+  "success": true,
+  "ghost_url": "https://your-ghost-blog.com/content/images/2025/12/image.png",
+  "filename": "image.png",
+  "size_bytes": 245678,
+  "mime_type": "image/png"
+}
+```
+
+Output (failure):
+```json
+{
+  "success": false,
+  "error": "Failed to download: 403 Forbidden"
+}
+```
+
+Supported formats: PNG, JPEG, GIF, WebP, SVG. Maximum file size: 128MB.
 
 ### Debugging
 
