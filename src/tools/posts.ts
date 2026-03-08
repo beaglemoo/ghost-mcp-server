@@ -418,10 +418,10 @@ export const updatePost = async ({ id, ...params }: { id: string } & UpdatePostP
     if (params.html) {
       queryParams.source = 'html';
     }
-    // updated_at is required
-    if (!params.updated_at) {
-      params.updated_at = new Date().toISOString();
-    }
+    // Fetch current post to get the correct updated_at for collision detection
+    const currentPost = await ghostApi.posts.read({ id });
+    params.updated_at = currentPost.updated_at || new Date().toISOString();
+
     const post = await (ghostApi.posts.edit as any)({ id, ...params }, queryParams);
     return {
       content: [
