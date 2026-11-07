@@ -100,7 +100,15 @@ Input:
   "html": "string",      // Optional: HTML content
   "lexical": "string",   // Optional: Lexical content
   "status": "string",    // Optional: Post status (published/draft/scheduled)
-  "visibility": "string" // Optional: Visibility level (public/members/paid/tiers)
+  "visibility": "string", // Optional: Visibility level (public/members/paid/tiers)
+  "tags": ["string"],    // Optional: Tag IDs (24-char hex) or tag names; unknown names are created
+  "feature_image": "string",         // Optional: Cover image URL
+  "feature_image_alt": "string",     // Optional: Cover image alt text
+  "feature_image_caption": "string", // Optional: Cover image caption
+  "custom_excerpt": "string",        // Optional: Excerpt, max 300 characters
+  "meta_title": "string",            // Optional: SEO title
+  "meta_description": "string",      // Optional: SEO description
+  "og_image": "string"               // Optional: Open Graph image URL
 }
 ```
 
@@ -114,9 +122,25 @@ Input:
   "title": "string",    // Optional: Post title
   "html": "string",     // Optional: HTML content
   "lexical": "string",  // Optional: Lexical content
-  "status": "string"    // Optional: Post status
+  "status": "string",   // Optional: Post status
+  "tags": ["string"],   // Optional: Tag IDs or names (replaces existing tags)
+  "feature_image": "string",         // Optional: Cover image URL
+  "feature_image_alt": "string",     // Optional: Cover image alt text
+  "feature_image_caption": "string", // Optional: Cover image caption
+  "custom_excerpt": "string",        // Optional: Excerpt, max 300 characters
+  "meta_title": "string",            // Optional: SEO title
+  "meta_description": "string",      // Optional: SEO description
+  "og_image": "string"               // Optional: Open Graph image URL
 }
 ```
+
+`html` and `lexical` are only sent to Ghost when supplied, so updating just the cover image or excerpt leaves the post content untouched. The current `updated_at` is fetched before every edit. `create_page` and `update_page` accept the same cover, excerpt, SEO and tag parameters.
+
+Tag entries that are not a 24-character hex ID are sent as `{"name": "..."}`, which Ghost resolves to an existing tag or creates.
+
+To set a generated cover: call `upload_image_from_url`, then pass its `ghost_url` as `feature_image`.
+
+To inspect the request body without contacting Ghost, run `npm run build && node scripts/dry-run-update.mjs`.
 
 ### delete_post
 Deletes a post.
