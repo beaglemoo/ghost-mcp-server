@@ -10,6 +10,7 @@ import {
 } from '../types/index.js';
 import { handleGhostApiError } from '../utils/error.js';
 import { createGhostApi } from '../config/config.js';
+import { coverFieldsSchema, tagsDescription, buildCreateRequest, buildUpdateRequest } from './post-body.js';
 import type { BrowseParams, ReadParams } from '@tryghost/admin-api';
 
 const ghostApi = createGhostApi();
@@ -128,7 +129,7 @@ export const createPostSchema = {
       },
       tags: {
         type: 'array',
-        description: 'Array of tag IDs',
+        description: tagsDescription,
         items: {
           type: 'string'
         }
@@ -155,7 +156,8 @@ export const createPostSchema = {
       newsletter: {
         type: 'boolean',
         description: 'Whether to send email'
-      }
+      },
+      ...coverFieldsSchema
     },
     required: ['title']
   }
@@ -199,7 +201,7 @@ export const updatePostSchema = {
       },
       tags: {
         type: 'array',
-        description: 'Array of tag IDs (replaces existing tags)',
+        description: `${tagsDescription} (replaces existing tags)`,
         items: {
           type: 'string'
         }
@@ -226,7 +228,8 @@ export const updatePostSchema = {
       newsletter: {
         type: 'boolean',
         description: 'Whether to send email'
-      }
+      },
+      ...coverFieldsSchema
     },
     required: ['id']
   }
@@ -394,11 +397,8 @@ export const searchPosts = async ({
 
 export const createPost = async (params: CreatePostParams): Promise<ToolResponse> => {
   try {
-    const queryParams: Record<string, string> = {};
-    if (params.html) {
-      queryParams.source = 'html';
-    }
-    const post = await (ghostApi.posts.add as any)(params, queryParams);
+    const { data, queryParams } = buildCreateRequest({ ...params });
+    const post = await (ghostApi.posts.add as any)(data, queryParams);
     return {
       content: [
         {
@@ -412,17 +412,14 @@ export const createPost = async (params: CreatePostParams): Promise<ToolResponse
   }
 };
 
-export const updatePost = async ({ id, ...params }: { id: string } & UpdatePostParams): Promise<ToolResponse> => {
+export const updatePost = async ({ id, ...params }: { id: string } & Partial<UpdatePostParams>): Promise<ToolResponse> => {
   try {
-    const queryParams: Record<string, string> = {};
-    if (params.html) {
-      queryParams.source = 'html';
-    }
-    // Fetch current post to get the correct updated_at for collision detection
-    const currentPost = await ghostApi.posts.read({ id });
-    params.updated_at = currentPost.updated_at || new Date().toISOString();
+    // Fetch the current post to get the correct updated_at for collision detection
+    const current = await ghostApi.posts.read({ id });
+    const updatedAt = current.updated_at || new Date().toISOString();
 
-    const post = await (ghostApi.posts.edit as any)({ id, ...params }, queryParams);
+    const { data, queryParams } = buildUpdateRequest(id, params, updatedAt);
+    const post = await (ghostApi.posts.edit as any)(data, queryParams);
     return {
       content: [
         {

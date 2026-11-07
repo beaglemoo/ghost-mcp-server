@@ -1,3 +1,5 @@
+import { coverFieldsSchema, tagsDescription } from './post-body.js';
+
 export * from './posts.js';
 export * from './tags.js';
 export * from './authors.js';
@@ -95,7 +97,7 @@ export const toolSchemas = [
         },
         tags: {
           type: 'array',
-          description: 'Array of tag IDs',
+          description: tagsDescription,
           items: {
             type: 'string'
           }
@@ -122,7 +124,8 @@ export const toolSchemas = [
         newsletter: {
           type: 'boolean',
           description: 'Whether to send email'
-        }
+        },
+        ...coverFieldsSchema
       },
       required: ['title']
     },
@@ -165,7 +168,7 @@ export const toolSchemas = [
         },
         tags: {
           type: 'array',
-          description: 'Array of tag IDs (replaces existing tags)',
+          description: `${tagsDescription} (replaces existing tags)`,
           items: {
             type: 'string'
           }
@@ -192,7 +195,8 @@ export const toolSchemas = [
         newsletter: {
           type: 'boolean',
           description: 'Whether to send email'
-        }
+        },
+        ...coverFieldsSchema
       },
       required: ['id']
     },
@@ -386,7 +390,7 @@ export const toolSchemas = [
         },
         tags: {
           type: 'array',
-          description: 'Array of tag IDs',
+          description: tagsDescription,
           items: {
             type: 'string'
           }
@@ -401,7 +405,8 @@ export const toolSchemas = [
         featured: {
           type: 'boolean',
           description: 'Set as featured page'
-        }
+        },
+        ...coverFieldsSchema
       },
       required: ['title']
     }
@@ -444,7 +449,7 @@ export const toolSchemas = [
         },
         tags: {
           type: 'array',
-          description: 'Array of tag IDs (replaces existing tags)',
+          description: `${tagsDescription} (replaces existing tags)`,
           items: {
             type: 'string'
           }
@@ -459,7 +464,8 @@ export const toolSchemas = [
         featured: {
           type: 'boolean',
           description: 'Set as featured page'
-        }
+        },
+        ...coverFieldsSchema
       },
       required: ['id']
     }

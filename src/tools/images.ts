@@ -390,7 +390,7 @@ export const uploadImageSchema = {
 
 export const uploadImageFromUrlSchema = {
   name: 'upload_image_from_url',
-  description: 'Download an image from a URL and upload it to Ghost. Returns the permanent Ghost URL.',
+  description: 'Download an image from a URL and upload it to Ghost. Returns the permanent Ghost URL in the `ghost_url` field of the JSON result; pass it as `feature_image` to create_post/update_post.',
   inputSchema: {
     type: 'object',
     properties: {

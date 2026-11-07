@@ -9,6 +9,7 @@ import {
 } from '../types/index.js';
 import { handleGhostApiError } from '../utils/error.js';
 import { createGhostApi } from '../config/config.js';
+import { coverFieldsSchema, tagsDescription, buildCreateRequest, buildUpdateRequest } from './post-body.js';
 import type { BrowseParams, ReadParams } from '@tryghost/admin-api';
 
 const ghostApi = createGhostApi();
@@ -127,7 +128,7 @@ export const createPageSchema = {
       },
       tags: {
         type: 'array',
-        description: 'Array of tag IDs',
+        description: tagsDescription,
         items: {
           type: 'string'
         }
@@ -142,7 +143,8 @@ export const createPageSchema = {
       featured: {
         type: 'boolean',
         description: 'Set as featured page'
-      }
+      },
+      ...coverFieldsSchema
     },
     required: ['title']
   }
@@ -186,7 +188,7 @@ export const updatePageSchema = {
       },
       tags: {
         type: 'array',
-        description: 'Array of tag IDs (replaces existing tags)',
+        description: `${tagsDescription} (replaces existing tags)`,
         items: {
           type: 'string'
         }
@@ -201,7 +203,8 @@ export const updatePageSchema = {
       featured: {
         type: 'boolean',
         description: 'Set as featured page'
-      }
+      },
+      ...coverFieldsSchema
     },
     required: ['id']
   }
@@ -306,11 +309,8 @@ export const getPage = async ({
 
 export const createPage = async (params: CreatePageParams): Promise<ToolResponse> => {
   try {
-    const queryParams: Record<string, string> = {};
-    if (params.html) {
-      queryParams.source = 'html';
-    }
-    const page = await (ghostApi.pages.add as any)(params, queryParams);
+    const { data, queryParams } = buildCreateRequest({ ...params });
+    const page = await (ghostApi.pages.add as any)(data, queryParams);
     return {
       content: [
         {
@@ -324,19 +324,14 @@ export const createPage = async (params: CreatePageParams): Promise<ToolResponse
   }
 };
 
-export const updatePage = async ({ id, ...params }: { id: string } & UpdatePageParams): Promise<ToolResponse> => {
+export const updatePage = async ({ id, ...params }: { id: string } & Partial<UpdatePageParams>): Promise<ToolResponse> => {
   try {
-    const queryParams: Record<string, string> = {};
-    if (params.html) {
-      queryParams.source = 'html';
-    }
-    // Get current page info
-    const currentPage = await ghostApi.pages.read({ id });
+    // Fetch the current page to get the correct updated_at for collision detection
+    const current = await ghostApi.pages.read({ id });
+    const updatedAt = current.updated_at || new Date().toISOString();
 
-    // Use current updated_at
-    params.updated_at = currentPage.updated_at || new Date().toISOString();
-
-    const page = await (ghostApi.pages.edit as any)({ id, ...params }, queryParams);
+    const { data, queryParams } = buildUpdateRequest(id, params, updatedAt);
+    const page = await (ghostApi.pages.edit as any)(data, queryParams);
     return {
       content: [
         {

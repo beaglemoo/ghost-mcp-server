@@ -50,6 +50,7 @@ import {
   CreateMemberParams,
   UpdateMemberParams
 } from './types/index.js';
+import { parseCoverFields } from './tools/post-body.js';
 
 const isPostStatus = (value: string): value is PostStatus =>
   ['published', 'draft', 'scheduled'].includes(value);
@@ -142,6 +143,7 @@ class GhostServer {
               email_subject: typeof email_subject === 'string' ? email_subject : undefined,
               email_only: typeof email_only === 'boolean' ? email_only : undefined,
               newsletter: typeof newsletter === 'boolean' ? newsletter : undefined,
+              ...parseCoverFields(args),
             });
           }
 
@@ -164,7 +166,7 @@ class GhostServer {
               email_subject: typeof email_subject === 'string' ? email_subject : undefined,
               email_only: typeof email_only === 'boolean' ? email_only : undefined,
               newsletter: typeof newsletter === 'boolean' ? newsletter : undefined,
-              updated_at: new Date().toISOString(),
+              ...parseCoverFields(args),
             });
           }
 
@@ -218,6 +220,7 @@ class GhostServer {
               tags: Array.isArray(tags) ? tags.filter((t): t is string => typeof t === 'string') : undefined,
               authors: Array.isArray(authors) ? authors.filter((a): a is string => typeof a === 'string') : undefined,
               featured: typeof featured === 'boolean' ? featured : undefined,
+              ...parseCoverFields(args),
             });
           }
 
@@ -237,7 +240,7 @@ class GhostServer {
               tags: Array.isArray(tags) ? tags.filter((t): t is string => typeof t === 'string') : undefined,
               authors: Array.isArray(authors) ? authors.filter((a): a is string => typeof a === 'string') : undefined,
               featured: typeof featured === 'boolean' ? featured : undefined,
-              updated_at: new Date().toISOString(),
+              ...parseCoverFields(args),
             });
           }
 

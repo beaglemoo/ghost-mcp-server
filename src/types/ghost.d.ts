@@ -107,6 +107,13 @@ declare module '@tryghost/admin-api' {
     email_subject?: string;
     email_only?: boolean;
     newsletter?: boolean;
+    feature_image?: string;
+    feature_image_alt?: string;
+    feature_image_caption?: string;
+    custom_excerpt?: string;
+    meta_title?: string;
+    meta_description?: string;
+    og_image?: string;
   }
 
   interface UpdatePostParams extends Partial<CreatePostParams> {
