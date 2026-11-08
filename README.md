@@ -1,6 +1,6 @@
 # Ghost MCP Server
 
-A Model Context Protocol (MCP) server that integrates with the Ghost Admin API. This server enables programmatic access to Ghost CMS features including post management, page management, member management, and more.
+This is the `beaglemoo` fork of [denishartl/ghost-mcp-server](https://github.com/denishartl/ghost-mcp-server) (remote `upstream`; the fork does not track it automatically). A Model Context Protocol (MCP) server that integrates with the Ghost Admin API. This server enables programmatic access to Ghost CMS features including post management, page management, member management, and more.
 
 ## Features
 
@@ -19,11 +19,16 @@ A Model Context Protocol (MCP) server that integrates with the Ghost Admin API. 
 
 ## Installation
 
-Install the package using npm:
+This fork is run from a local clone, not from npm:
 
 ```bash
-npm install @densh/ghost-mcp-server
+git clone git@github.com:beaglemoo/ghost-mcp-server.git ~/Homelab/ghost-mcp-server
+cd ~/Homelab/ghost-mcp-server
+npm install
+npm run build
 ```
+
+Run `npm run build` again after every change to `src/`, then restart the MCP client.
 
 ## Configuration
 
@@ -50,11 +55,29 @@ GHOST_ADMIN_API_KEY=your_admin_api_key
 
 ## Usage
 
-After installation, start the server with:
+Start the server (stdio) with:
 
 ```bash
-npx @densh/ghost-mcp-server
+node build/index.js
 ```
+
+### Claude Code
+
+Claude Code reads MCP servers from `~/.claude.json` (`mcpServers`). The `ghost` entry points at the built file:
+
+```json
+"ghost": {
+  "type": "stdio",
+  "command": "node",
+  "args": ["/Users/beaglemoo/Homelab/ghost-mcp-server/build/index.js"],
+  "env": {
+    "GHOST_API_URL": "https://blog.sillymoo.dev",
+    "GHOST_ADMIN_API_KEY": "<id>:<secret>"
+  }
+}
+```
+
+Restart Claude Code after changing the entry or rebuilding. To go back to the upstream package, set `"command": "npx"` and `"args": ["-y", "@densh/ghost-mcp-server"]`; that version lacks the cover, excerpt and tag-name fields below.
 
 ## Available Tools
 
